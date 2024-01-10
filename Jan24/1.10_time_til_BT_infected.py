@@ -18,22 +18,43 @@
 class Solution:
     def amountOfTime(self, root: Optional[TreeNode], start: int) -> int:
         # my solution
+        self.result = 0
 
-        # copilot solution
-        def infect(node, time):
-            if not node:
-                return
-            if time == 0:
-                node.infected = True
-            infect(node.left, time - 1)
-            infect(node.right, time - 1)
-
-        def count_infected(node):
-            if not node:
+        def DFS(node, start):
+            if node == None:
                 return 0
-            if node.infected:
-                return 1 + count_infected(node.left) + count_infected(node.right)
-            return count_infected(node.left) + count_infected(node.right)
 
-        infect(root, start)
-        return count_infected(root)
+            leftDepth = DFS(node.left, start)
+            rightDepth = DFS(node.right, start)
+
+            if node.val == start:
+                self.result = max(leftDepth, rightDepth)
+                return -1
+
+            elif leftDepth >= 0 and rightDepth >= 0:
+                return max(leftDepth, rightDepth) + 1
+
+            self.result = max(self.result, abs(leftDepth - rightDepth))
+            return min(leftDepth, rightDepth) - 1
+
+        DFS(root, start)
+        return self.result
+
+        # copilot solution - - didn't pass!!
+        # def infect(node, time):
+        #     if not node:
+        #         return
+        #     if time == 0:
+        #         node.infected = True
+        #     infect(node.left, time - 1)
+        #     infect(node.right, time - 1)
+
+        # def count_infected(node):
+        #     if not node:
+        #         return 0
+        #     if node.infected:
+        #         return 1 + count_infected(node.left) + count_infected(node.right)
+        #     return count_infected(node.left) + count_infected(node.right)
+
+        # infect(root, start)
+        # return count_infected(root)
