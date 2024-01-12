@@ -17,13 +17,22 @@
 #         self.right = right
 class Solution:
     def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
-        self.lg = 0
-        self.sm = 0
-        self.diff = abs(self.lg - self.sm)
+        # Kat's answer
+        self.diff = 0
 
-        def depth_first_search(node, lg, sm):
-            pass
+        def dfs(node, max, min):
+            if not node:
+                return
+            if node.val < min:
+                min = node.val
+            elif node.val > max:
+                max = node.val
+            if abs(max - min) > self.diff:
+                self.diff = abs(max - min)
+            dfs(node.left, max, min)
+            dfs(node.right, max, min)
 
+        dfs(root, root.val, root.val)
         return self.diff
 
     # select leetcode solution
