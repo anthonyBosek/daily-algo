@@ -17,7 +17,28 @@
 #         self.right = right
 class Solution:
     def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
-        pass
+        self.lg = 0
+        self.sm = 0
+        self.diff = abs(self.lg - self.sm)
+
+        def depth_first_search(node, lg, sm):
+            pass
+
+        return self.diff
+
+    # select leetcode solution
+    #     return self.findMaxDiff(root, root.val, root.val)
+    # def findMaxDiff(self, root, minimum, maximum):
+    #     if not root:
+    #         return abs(minimum - maximum)
+
+    #     minimum = min(minimum, root.val)
+    #     maximum = max(maximum, root.val)
+
+    #     left = self.findMaxDiff(root.left, minimum, maximum)
+    #     right = self.findMaxDiff(root.right, minimum, maximum)
+
+    #     return max(left, right)
 
     # copilot solution
     #     self.max_diff = 0
