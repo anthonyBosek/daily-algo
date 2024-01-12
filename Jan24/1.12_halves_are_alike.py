@@ -9,7 +9,33 @@
 
 class Solution:
     def halvesAreAlike(self, s: str) -> bool:
-        pass
+        # other solution
+        vowels = set("aeiouAEIOU")
+        l = len(s)
+        count = 0
+        for i in range(l):
+            if s[i] in vowels:
+                if i < l // 2:
+                    count += 1
+                else:
+                    count -= 1
+        return count == 0
+
+        # my solution
+        # l = s.lower()
+        # vwls = set('aeiou')
+        # h = len(l) // 2
+        # x = l[h:]
+        # y = l[:h]
+        # x_cnt = 0
+        # y_cnt = 0
+        # for i in range(h):
+        #     if x[i] in vwls:
+        #         x_cnt += 1
+        #     if y[i] in vwls:
+        #         y_cnt += 1
+
+        # return x_cnt == y_cnt
 
         # copilot solution
         # vowels = set("aeiouAEIOU")
