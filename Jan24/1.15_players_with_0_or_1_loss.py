@@ -20,7 +20,24 @@
 class Solution:
     def findWinners(self, matches: List[List[int]]) -> List[List[int]]:
         # my solution
-        pass
+        winners = set()
+        one_loss = set()
+        losers = set()
+
+        for won, lost in matches:
+            if lost in winners:
+                winners.remove(lost)
+                one_loss.add(lost)
+            elif lost in one_loss:
+                one_loss.remove(lost)
+                losers.add(lost)
+            elif lost not in losers:
+                one_loss.add(lost)
+
+            if won not in winners and won not in one_loss and won not in losers:
+                winners.add(won)
+
+        return [sorted(list(winners)), sorted(list(one_loss))]
 
         # leetcode solution
         # zeroLoss, oneLoss, moreLoss = set(), set(), set()
