@@ -11,13 +11,23 @@
 
 class Solution:
     def climbStairs(self, n: int, memo={}) -> int:
-        if 0 < n < 3:
-            return n
-
-        # Recursive - Top Dowm (memoization)
+        # copilot solution
+        if n == 1:
+            return 1
+        if n == 2:
+            return 2
         if n not in memo:
             memo[n] = self.climbStairs(n - 1, memo) + self.climbStairs(n - 2, memo)
         return memo[n]
+
+        # solutions from SE class
+        # if 0 < n < 3:
+        #     return n
+
+        # Recursive - Top Dowm (memoization)
+        # if n not in memo:
+        #     memo[n] = self.climbStairs(n - 1, memo) + self.climbStairs(n - 2, memo)
+        # return memo[n]
 
         # Iterative - Bottom Up (tabulation)
         # dp = [0] * (n+1)
