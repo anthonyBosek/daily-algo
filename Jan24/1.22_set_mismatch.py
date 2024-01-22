@@ -14,4 +14,30 @@
 
 class Solution:
     def findErrorNums(self, nums: List[int]) -> List[int]:
-        pass
+        # 1. set
+        # 2. sum
+        # 3. math
+
+        # 1. set
+        # Time: O(n)
+        # Space: O(n)
+        # nums_set = set()
+        # for num in nums:
+        #     if num not in nums_set:
+        #         nums_set.add(num)
+        #     else:
+        #         return [num, (set(range(1, len(nums) + 1)) - nums_set).pop()]
+
+        # 2. sum
+        # Time: O(n)
+        # Space: O(1)
+        # n = len(nums)
+        # return [sum(nums) - sum(set(nums)), n * (n + 1) // 2 - sum(set(nums))]
+
+        # 3. math
+        # Time: O(n)
+        # Space: O(1)
+        n = len(nums)
+        nums_sum = sum(nums)
+        nums_sum_set = sum(set(nums))
+        return [nums_sum - nums_sum_set, n * (n + 1) // 2 - nums_sum_set]
