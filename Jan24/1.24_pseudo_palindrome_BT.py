@@ -19,4 +19,23 @@
 #         self.right = right
 class Solution:
     def pseudoPalindromicPaths(self, root: Optional[TreeNode]) -> int:
-        pass
+        def dfs(node, path):
+            if not node:
+                return 0
+            path ^= 1 << node.val
+            if not node.left and not node.right:
+                return 1 if path & (path - 1) == 0 else 0
+            return dfs(node.left, path) + dfs(node.right, path)
+
+        return dfs(root, 0)
+
+        # ---------------------------------------------------------
+        # def dfs(node, path):
+        #     if not node:
+        #         return 0
+        #     path ^= 1 << node.val
+        #     if not node.left and not node.right:
+        #         return (path & (path - 1)) == 0
+        #     return dfs(node.left, path) + dfs(node.right, path)
+
+        # return dfs(root, 0)
