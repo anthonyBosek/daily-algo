@@ -44,3 +44,96 @@ class Solution:
                         prefix_sum_map[current_sum] = 1
 
         return count
+
+    # ------------------------------------------------------------------------------
+    #     """
+    #     Brute force: O(n^4)
+    #     1. Calculate the sum of all submatrices
+    #     2. Count the number of submatrices that sum to target
+    #     """
+    #     m, n = len(matrix), len(matrix[0])
+    #     prefix_sum = [[0] * (n + 1) for _ in range(m + 1)]
+    #     for i in range(m):
+    #         for j in range(n):
+    #             prefix_sum[i + 1][j + 1] = (
+    #                 prefix_sum[i][j + 1]
+    #                 + prefix_sum[i + 1][j]
+    #                 - prefix_sum[i][j]
+    #                 + matrix[i][j]
+    #             )
+
+    #     count = 0
+    #     for i in range(m):
+    #         for j in range(n):
+    #             for k in range(i, m):
+    #                 for l in range(j, n):
+    #                     if (
+    #                         prefix_sum[k + 1][l + 1]
+    #                         - prefix_sum[i][l + 1]
+    #                         - prefix_sum[k + 1][j]
+    #                         + prefix_sum[i][j]
+    #                         == target
+    #                     ):
+    #                         count += 1
+    #     return count
+
+    # def numSubmatrixSumTarget(self, matrix: List[List[int]], target: int) -> int:
+    #     """
+    #     Optimized brute force: O(n^3)
+    #     1. Calculate the sum of all submatrices
+    #     2. Count the number of submatrices that sum to target
+    #     """
+    #     m, n = len(matrix), len(matrix[0])
+    #     prefix_sum = [[0] * (n + 1) for _ in range(m + 1)]
+    #     for i in range(m):
+    #         for j in range(n):
+    #             prefix_sum[i + 1][j + 1] = (
+    #                 prefix_sum[i][j + 1]
+    #                 + prefix_sum[i + 1][j]
+    #                 - prefix_sum[i][j]
+    #                 + matrix[i][j]
+    #             )
+
+    #     count = 0
+    #     for i in range(m):
+    #         for j in range(i, m):
+    #             for k in range(n):
+    #                 for l in range(k, n):
+    #                     if (
+    #                         prefix_sum[j + 1][l + 1]
+    #                         - prefix_sum[i][l + 1]
+    #                         - prefix_sum[j + 1][k]
+    #                         + prefix_sum[i][k]
+    #                         == target
+    #                     ):
+    #                         count += 1
+    #     return count
+
+    # def numSubmatrixSumTarget(self, matrix: List[List[int]], target: int) -> int:
+    #     """
+    #     Optimized brute force: O(n^3)
+    #     1. Calculate the sum of all submatrices
+    #     2. Count the number of submatrices that sum to target
+    #     """
+    #     m, n = len(matrix), len(matrix[0])
+    #     prefix_sum = [[0] * (n + 1) for _ in range(m + 1)]
+    #     for i in range(m):
+    #         for j in range(n):
+    #             prefix_sum[i + 1][j + 1] = (
+    #                 prefix_sum[i][j + 1]
+    #                 + prefix_sum[i + 1][j]
+    #                 - prefix_sum[i][j]
+    #                 + matrix[i][j]
+    #             )
+
+    #     count = 0
+    #     for i in range(m):
+    #         for j in range(i, m):
+    #             dic = collections.defaultdict(int)
+    #             for k in range(n):
+    #                 cur = prefix_sum[j + 1][k + 1] - prefix_sum[i][k + 1]
+    #                 if cur == target:
+    #                     count += 1
+    #                 count += dic[cur - target]
+    #                 dic[cur] += 1
+    #     return count
