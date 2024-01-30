@@ -11,22 +11,26 @@
 
 """
 
+from collections import deque
+
 
 class MyQueue:
     def __init__(self):
-        pass
+        # self.my_que = []
+        self.my_que = deque([])
 
     def push(self, x: int) -> None:
-        pass
+        self.my_que.append(x)
 
     def pop(self) -> int:
-        pass
+        # return self.my_que.pop(0)
+        return self.my_que.popleft()
 
     def peek(self) -> int:
-        pass
+        return self.my_que[0]
 
     def empty(self) -> bool:
-        pass
+        return len(self.my_que) == 0
 
 
 # Your MyQueue object will be instantiated and called as such:
