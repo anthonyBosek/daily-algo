@@ -16,4 +16,64 @@
 
 class Solution:
     def divideArray(self, nums: List[int], k: int) -> List[List[int]]:
-        pass
+        nums.sort()
+        res = []
+        while nums:
+            res.append([nums.pop(0)])
+            for i in range(len(nums)):
+                if nums[i] - res[-1][-1] <= k:
+                    res[-1].append(nums.pop(i))
+                    break
+            else:
+                return []
+        return res
+
+        # size = len(nums)
+        # if size % 3 != 0:
+        #     return []
+
+        # nums.sort()
+
+        # result = []
+        # group_index = 0
+        # for i in range(0, size, 3):
+        #     if i + 2 < size and nums[i + 2] - nums[i] <= k:
+        #         result.append([nums[i], nums[i + 1], nums[i + 2]])
+        #         group_index += 1
+        #     else:
+        #         return []
+        # return result
+
+        # ------------------------------
+
+        # nums.sort()
+        # res = []
+        # while nums:
+        #     res.append(nums[:3])
+        #     nums = nums[3:]
+        # return res
+
+        # ------------------------------
+
+        # nums.sort()
+        # n = len(nums)
+        # res = []
+        # i = 0
+        # while i < n:
+        #     res.append(nums[i : i + 3])
+        #     i += 3
+        # return res
+
+        # ------------------------------
+
+        # nums.sort()
+        # res = []
+        # while nums:
+        #     res.append([nums.pop(0)])
+        #     for i in range(len(nums)):
+        #         if nums[i] - res[-1][-1] <= k:
+        #             res[-1].append(nums.pop(i))
+        #             break
+        #     else:
+        #         return []
+        # return res
