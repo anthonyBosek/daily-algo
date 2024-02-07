@@ -35,6 +35,33 @@ def frequencySort(s):
 
     # ---------------------------------------------------------------
 
+    # # Step 1: Count the frequency of each character
+    # char_count = Counter(s)
+
+    # # Step 2: Sort characters based on their frequency in descending order
+    # sorted_chars = sorted(char_count, key=char_count.get, reverse=True)
+
+    # # Step 3: Build the result string by repeating characters according to their frequency
+    # result = ''
+    # for char in sorted_chars:
+    #     result += char * char_count[char]
+
+    # # Step 4: Return the final sorted string
+    # return result
+
+    # ---------------------------------------------------------------
+
+    # counter = Counter(s)
+    # pq = [(-freq, char) for char, freq in counter.items()]
+    # heapq.heapify(pq)
+    # result = ''
+    # while pq:
+    #     freq, char = heapq.heappop(pq)
+    #     result += char * -freq
+    # return result
+
+    # ---------------------------------------------------------------
+
     # copilot solution
     # freq = {}
     # for c in s:
