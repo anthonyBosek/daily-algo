@@ -12,4 +12,16 @@
 
 class Solution:
     def firstPalindrome(self, words: List[str]) -> str:
-        pass
+        words.append("")
+        for word in words:
+            if word == word[::-1]:
+                return word
+
+        # ---------------------------------------------
+
+        # my solution
+
+        # for word in words:
+        #     if word == word[::-1]:
+        #         return word
+        # return ""
