@@ -8,7 +8,29 @@
     
 """
 
+from math import log
+
 
 class Solution:
     def isPowerOfTwo(self, n: int) -> bool:
-        pass
+        # return (n != 0) and (n & (n-1) == 0)
+
+        # ------------------------------------
+
+        # if n <= 0:
+        #     return False
+        # return n & (n - 1) == 0
+
+        # ------------------------------------
+
+        # for i in range(31):
+        #     if 2 ** i == n:
+        #         return True
+        # return False
+
+        # ------------------------------------
+
+        if not n > 0:
+            return False
+        x = int(log(n, 2))
+        return pow(2, x) == n
