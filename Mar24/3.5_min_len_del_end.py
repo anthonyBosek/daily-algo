@@ -18,4 +18,41 @@
 
 class Solution:
     def minimumLength(self, s: str) -> int:
-        pass
+        l, r = 0, len(s) - 1
+        while l < r and s[l] == s[r]:
+            char = s[l]
+            l += 1
+            r -= 1
+            while l <= r and s[l] == char:
+                l += 1
+            while l <= r and s[r] == char:
+                r -= 1
+
+        return r - l + 1
+
+        # ------------------------------------------------
+
+        # start = 0
+        # end = len(s)-1
+
+        # while start < end and s[start] == s[end]:
+        #     curr = s[start]
+        #     start += 1
+        #     end -= 1
+        #     while start <= end and s[start] == curr:
+        #         start += 1
+        #     while end >= start and s[end] == curr:
+        #         end -= 1
+
+        # return end-start+1
+
+        # ------------------------------------------------
+
+        # i, j = 0, len(s) - 1
+        # while i < j and s[i] == s[j]:
+        #     c = s[i]
+        #     while i <= j and s[i] == c:
+        #         i += 1
+        #     while i <= j and s[j] == c:
+        #         j -= 1
+        # return j - i + 1
