@@ -18,4 +18,43 @@ class Solution:
     def mergeInBetween(
         self, list1: ListNode, a: int, b: int, list2: ListNode
     ) -> ListNode:
-        pass
+        first = list2
+        last = list2
+        while last.next:
+            last = last.next
+
+        prev = ListNode(-1)
+        curr = list1
+        cntr = 0
+        while curr:
+            if cntr == a:
+                prev.next = first
+            if cntr == b:
+                last.next = curr.next
+                return list1
+
+            cntr += 1
+            prev = curr
+            curr = curr.next
+
+        return list1
+
+        # ---------------------------------------------------------------------------------
+
+        # # find the a-1th node
+        # prev = list1
+        # for _ in range(a - 1):
+        #     prev = prev.next
+        # # find the bth node
+        # curr = prev
+        # for _ in range(b - a + 2):
+        #     curr = curr.next
+        # # find the last node of list2
+        # last = list2
+        # while last.next:
+        #     last = last.next
+        # # link the a-1th node to list2
+        # prev.next = list2
+        # # link the last node of list2 to the bth node
+        # last.next = curr
+        # return list1
