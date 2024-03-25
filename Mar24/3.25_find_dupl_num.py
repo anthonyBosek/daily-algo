@@ -13,4 +13,31 @@
 
 class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
-        pass
+        num_set = set()
+        for num in nums:
+            if num in (num_set):
+                return num
+            else:
+                num_set.add(num)
+
+        # --------------------------------------------
+
+        # # Floyd's Tortoise and Hare (Cycle Detection)
+        # # Time complexity: O(n)
+        # # Space complexity: O(1)
+        # slow = nums[0]
+        # fast = nums[0]
+
+        # while True:
+        #     slow = nums[slow]
+        #     fast = nums[nums[fast]]
+
+        #     if slow == fast:
+        #         break
+
+        # slow = nums[0]
+        # while slow != fast:
+        #     slow = nums[slow]
+        #     fast = nums[fast]
+
+        # return slow
