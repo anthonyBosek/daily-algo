@@ -12,4 +12,31 @@
 
 class Solution:
     def findDuplicates(self, nums: List[int]) -> List[int]:
-        pass
+        # count = Counter(nums)
+        # ls=[]
+        # for i , j in count.items():
+        #     if j >= 2:
+        #         ls.append(i)
+        # return ls
+
+        # ----------------------------------------------------
+
+        seen, duplicates = set(), []
+
+        for num in nums:
+            if num in seen:
+                duplicates.append(num)
+            else:
+                seen.add(num)
+
+        return duplicates
+
+        # ----------------------------------------------------
+
+        # res = []
+        # for i in range(len(nums)):
+        #     index = abs(nums[i]) - 1
+        #     if nums[index] < 0:
+        #         res.append(index + 1)
+        #     nums[index] = -nums[index]
+        # return res
