@@ -14,6 +14,40 @@
 
 """
 
+from typing import List
+
 
 def minRemoveToMakeValid(s):
-    pass
+    stack: List[int] = []
+    result: List[str] = []
+    for c in s:
+        if c == "(":
+            stack.append(len(result))
+            result.append(c)
+        elif c == ")":
+            if stack:
+                stack.pop()
+                result.append(c)
+        else:
+            result.append(c)
+
+    for i in stack:
+        result[i] = ""
+
+    return "".join(result)
+
+    # ---------------------------------------------------------
+
+    # stack = []
+    # s = list(s)
+    # for i, c in enumerate(s):
+    #     if c == '(':
+    #         stack.append(i)
+    #     elif c == ')':
+    #         if stack:
+    #             stack.pop()
+    #         else:
+    #             s[i] = ''
+    # for i in stack:
+    #     s[i] = ''
+    # return ''.join(s)
