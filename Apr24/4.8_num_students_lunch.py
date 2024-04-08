@@ -20,4 +20,52 @@
 
 class Solution:
     def countStudents(self, students: List[int], sandwiches: List[int]) -> int:
-        pass
+        cntr = 0
+        while True:
+            if len(students) == 0:
+                return 0
+            if len(students) == cntr:
+                return cntr
+            if students[0] == sandwiches[0]:
+                cntr = 0
+                students.pop(0)
+                sandwiches.pop(0)
+            else:
+                cntr += 1
+                students.append(students.pop(0))
+
+        # -----------------------------------------------------------------------
+
+        # dq_st, dq_sa = deque(students), deque(sandwiches)
+        # counter = 0
+        # while dq_st:
+        #     if counter == len(dq_st):
+        #         break
+
+        #     cur_st = dq_st.popleft()
+        #     if cur_st == dq_sa[0]:
+        #         dq_sa.popleft()
+        #         counter = 0
+        #     else:
+        #         dq_st.append(cur_st)
+        #         counter += 1
+        # return len(dq_st)
+
+        # -----------------------------------------------------------------------
+
+        # # Count the number of students who prefer circular and square sandwiches
+        # count = [0, 0]
+        # for student in students:
+        #     count[student] += 1
+
+        # # Iterate through the sandwiches
+        # for sandwich in sandwiches:
+        #     # If the student prefers the sandwich, decrement the count
+        #     if count[sandwich] > 0:
+        #         count[sandwich] -= 1
+        #     # If the student does not prefer the sandwich, break
+        #     else:
+        #         break
+
+        # # Return the number of students who are unable to eat
+        # return count[0] + count[1]
