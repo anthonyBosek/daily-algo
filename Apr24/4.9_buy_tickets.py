@@ -18,4 +18,47 @@
 
 
 def timeRequiredToBuy(tickets, k):
-    pass
+    counter = 0
+
+    counter = tickets[k]
+    for z in range(len(tickets)):
+        if z == k:
+            continue
+        res = tickets[z] - tickets[k]
+        if res >= 0:
+            counter += tickets[k]
+        else:
+            counter += tickets[z]
+
+    for s in range(k + 1, len(tickets)):
+        if tickets[s] >= tickets[k]:
+            counter -= 1
+
+    return counter
+
+    # -----------------------------------------------
+
+    # time = 0
+
+    # for x in range(len(tickets)):
+    #     if tickets[x] >= tickets[k]:
+    #         time += tickets[k]
+    #     elif tickets[x] < tickets[k]:
+    #         time += tickets[x]
+
+    #     if x > k and tickets[x] >= tickets[k]:
+    #         time -= 1
+
+    # return time
+
+    # ----------------------------------------------
+
+    # time = 0
+    # while tickets[k] > 0:
+    #     for i in range(len(tickets)):
+    #         if tickets[i] > 0:
+    #             tickets[i] -= 1
+    #             time += 1
+    #             if i == k and tickets[i] == 0:
+    #                 return time
+    # return time
