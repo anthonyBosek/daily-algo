@@ -18,7 +18,42 @@
 
 """
 
+from collections import deque
+
 
 class Solution:
-    def deckRevealedIncreasing(self, deck: List[int]) -> List[int]:
-        pass
+    def deckRevealedIncreasing(self, deck):
+        deck.sort()
+        q_indices = deque(range(len(deck)))
+        ans = [0] * len(deck)
+
+        for card in deck:
+            ind = q_indices.popleft()
+            ans[ind] = card
+            if q_indices:
+                ind = q_indices.popleft()
+                q_indices.append(ind)
+
+        return ans
+
+        # ---------------------------------------------------------
+
+        # deck.sort()
+        # result = []
+
+        # for card in reversed(deck):
+        #     if result:
+        #         result.insert(0, result.pop())
+        #     result.insert(0, card)
+
+        # return result
+
+        # ---------------------------------------------------------
+
+        # deck.sort(reverse=True)
+        # res = []
+        # for card in deck:
+        #     if res:
+        #         res.insert(0, res.pop())
+        #     res.insert(0, card)
+        # return res
