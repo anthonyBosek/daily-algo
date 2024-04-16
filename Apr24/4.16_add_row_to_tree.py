@@ -20,14 +20,89 @@
 
 """
 
+
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
 
 class Solution:
     def addOneRow(self, root, val, depth):
-        pass
+        if depth == 1:
+            out = TreeNode(val)
+            out.left = root
+            return out
+
+        def helper(tree, d):
+            if not tree:
+                return
+
+            if d == depth - 1:
+                tree.left = TreeNode(val, tree.left)
+                tree.right = TreeNode(val, None, tree.right)
+                return
+
+            if d < depth - 1:
+                helper(tree.left, d + 1)
+                helper(tree.right, d + 1)
+
+        helper(root, 1)
+        return root
+
+    # ----------------------------------------------------------
+
+    # if depth == 1:
+    #     return TreeNode(val, root)
+
+    # def dfs(node, level):
+    #     if not node:
+    #         return
+    #     if level == depth - 1:
+    #         node.left = TreeNode(val, node.left)
+    #         node.right = TreeNode(val, None, node.right)
+    #     else:
+    #         dfs(node.left, level + 1)
+    #         dfs(node.right, level + 1)
+
+    # dfs(root, 1)
+    # return root
+
+    # ----------------------------------------------------------
+
+    # if depth == 1:
+    #     return TreeNode(val, root)
+    # queue = [(root, 1)]
+    # while queue:
+    #     node, curr_depth = queue.pop(0)
+    #     if curr_depth == depth - 1:
+    #         node.left = TreeNode(val, node.left)
+    #         node.right = TreeNode(val, None, node.right)
+    #     if node.left:
+    #         queue.append((node.left, curr_depth + 1))
+    #     if node.right:
+    #         queue.append((node.right, curr_depth + 1))
+    # return root
+
+
+#
+#
+# ------ dfs option ------
+# class Solution:
+#     def addOneRow(self, root, val, depth):
+#         if depth == 1:
+#             return TreeNode(val, root)
+#         self.dfs(root, val, depth, 1)
+#         return root
+
+#     def dfs(self, node, val, depth, curr_depth):
+#         if not node:
+#             return
+#         if curr_depth == depth - 1:
+#             node.left = TreeNode(val, node.left)
+#             node.right = TreeNode(val, None, node.right)
+#             return
+#         self.dfs(node.left, val, depth, curr_depth + 1)
+#         self.dfs(node.right, val, depth, curr_depth + 1)
