@@ -23,4 +23,53 @@
 #         self.right = right
 class Solution:
     def smallestFromLeaf(self, root: Optional[TreeNode]) -> str:
-        pass
+        def dfs(node, cur):
+            if not node:
+                return ""
+            cur = chr(ord("a") + node.val) + cur
+            if not node.left and not node.right:
+                return cur
+            if not node.right:
+                return dfs(node.left, cur)
+            if not node.left:
+                return dfs(node.right, cur)
+            return min(dfs(node.left, cur), dfs(node.right, cur))
+
+        return dfs(root, "")
+
+        # -------------------------------------------------------------------
+
+        # ans = []
+
+        # def dfs(node, ds):
+        #     if not node:
+        #         return
+        #     ds.append(chr(97 + node.val))
+
+        #     if not node.left and not node.right:
+        #         ans.append("".join(ds[::-1]))
+        #         ds.pop()
+        #         return
+        #     dfs(node.left, ds)
+        #     dfs(node.right, ds)
+        #     ds.pop()
+
+        # dfs(root, [])
+        # ans.sort()
+        # return ans[0]
+
+        # -------------------------------------------------------------------
+
+        # def dfs(node, path):
+        #     if not node:
+        #         return
+        #     path.append(chr(node.val + ord("a")))
+        #     if not node.left and not node.right:
+        #         self.ans = min(self.ans, "".join(path[::-1]))
+        #     dfs(node.left, path)
+        #     dfs(node.right, path)
+        #     path.pop()
+
+        # self.ans = "~"
+        # dfs(root, [])
+        # return self.ans
