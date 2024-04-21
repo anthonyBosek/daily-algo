@@ -13,10 +13,56 @@
 """
 
 from typing import List
+from collections import deque
+from heapq import heappush
 
 
 class Solution:
     def validPath(
         self, n: int, edges: List[List[int]], source: int, destination: int
     ) -> bool:
-        pass
+
+        if source == destination:
+            return True
+        if [source, destination] in edges:
+            return True
+
+        outedges = [list() for _ in range(n)]
+        for s, e in edges:
+            heappush(outedges[s], e)
+            heappush(outedges[e], s)
+        del edges
+
+        stack = deque([source])
+        visited = {source}
+        while stack:
+            node = stack.pop()
+            visited.add(node)
+            if node == destination:
+                return True
+            for dest in outedges[node]:
+                if dest not in visited:
+                    stack.append(dest)
+
+        return False
+
+        # -------------------------------------------------
+
+        # graph = {i: [] for i in range(n)}
+        # for u, v in edges:
+        #     graph[u].append(v)
+        #     graph[v].append(u)
+
+        # visited = set()
+        # stack = [source]
+
+        # while stack:
+        #     node = stack.pop()
+        #     if node == destination:
+        #         return True
+        #     if node in visited:
+        #         continue
+        #     visited.add(node)
+        #     stack.extend(graph[node])
+
+        # return False
