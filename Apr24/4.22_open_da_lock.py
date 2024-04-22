@@ -16,7 +16,34 @@
 
 """
 
+from collections import deque
+from typing import List
+
 
 class Solution:
     def openLock(self, deadends: List[str], target: str) -> int:
-        pass
+        # BFS
+        deadends = set(deadends)
+        if "0000" in deadends:
+            return -1
+        if target == "0000":
+            return 0
+
+        def get_next(status):
+            for i in range(4):
+                x = int(status[i])
+                for d in (-1, 1):
+                    y = (x + d) % 10
+                    yield status[:i] + str(y) + status[i + 1 :]
+
+        q = deque([("0000", 0)])
+        visited = {"0000"}
+        while q:
+            status, step = q.popleft()
+            for next_status in get_next(status):
+                if next_status not in visited and next_status not in deadends:
+                    if next_status == target:
+                        return step + 1
+                    q.append((next_status, step + 1))
+                    visited.add(next_status)
+        return -1
