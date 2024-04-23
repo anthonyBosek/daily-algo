@@ -21,4 +21,64 @@ from typing import List
 
 class Solution:
     def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
-        pass
+        """
+        The idea is to remove the leaf nodes layer by layer until we are left with 1 or 2 nodes.
+        These nodes are the roots of the minimum height trees.
+
+        The leaf nodes are the nodes with degree 1. So, we start with the leaf nodes and remove them from the graph.
+        After removing the leaf nodes, some more nodes become leaf nodes. We continue this process until we are left
+        with 1 or 2 nodes.
+
+        The nodes left at the end are the roots of the minimum height trees.
+
+        Time complexity: O(n), where n is the number of nodes in the graph.
+        Space complexity: O(n), where n is the number of nodes in the graph.
+        """
+
+        if n == 1:
+            return [0]
+
+        # Create an adjacency list
+        adj_list = [set() for _ in range(n)]
+        for u, v in edges:
+            adj_list[u].add(v)
+            adj_list[v].add(u)
+
+        # Find the leaf nodes
+        leaves = [i for i in range(n) if len(adj_list[i]) == 1]
+
+        # Remove the leaf nodes layer by layer
+        while n > 2:
+            n -= len(leaves)
+            new_leaves = []
+            for leaf in leaves:
+                neighbor = adj_list[leaf].pop()
+                adj_list[neighbor].remove(leaf)
+                if len(adj_list[neighbor]) == 1:
+                    new_leaves.append(neighbor)
+            leaves = new_leaves
+
+        return leaves
+
+        # -----------------------------------------------------------------------------------------------
+
+        # if n == 1: return [0]
+
+        # adj = [set() for _ in range(n)]
+        # for u, v in edges:
+        #     adj[u].add(v)
+        #     adj[v].add(u)
+
+        # leaves = [i for i in range(n) if len(adj[i]) == 1]
+
+        # while n > 2:
+        #     n -= len(leaves)
+        #     new_leaves = []
+        #     for leaf in leaves:
+        #         neighbor = adj[leaf].pop()
+        #         adj[neighbor].remove(leaf)
+        #         if len(adj[neighbor]) == 1:
+        #             new_leaves.append(neighbor)
+        #     leaves = new_leaves
+
+        # return leaves
