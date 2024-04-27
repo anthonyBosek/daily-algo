@@ -24,8 +24,74 @@
 """
 
 from typing import List
+from collections import defaultdict
+from functools import lru_cache
 
 
 class Solution:
     def findRotateSteps(self, ring: str, key: str) -> int:
-        pass
+        rlen, klen, d = len(ring), len(key), defaultdict(list)
+        dist = lambda x, y: min((x - y) % rlen, (y - x) % rlen)
+
+        for i, ch in enumerate(ring):
+            d[ch].append(i)
+        # print(d)
+        # defaultdict(<class 'list'>, {'g': [0, 6], 'o': [1], 'd': [2, 3], 'i': [4], 'n': [5]})
+
+        @lru_cache(None)
+        def dfs(curr=0, next=0):
+            if next >= klen:
+                return 0
+
+            return min(dist(curr, k) + dfs(k, next + 1) for k in d[key[next]])
+
+        return dfs() + klen
+
+        # ----------------------------------------------------------------------------------------
+
+        # n = len(ring)
+        # matches = {}
+        # for i in range(n):
+        #     matches.setdefault(ring[i], []).append(i)
+
+        # pos_cost = [(0, 0)]
+        # for ch in key:
+        #     pos_cost_curr = []
+        #     for curr_pos in matches[ch]:
+        #         curr_cost = float('inf')
+        #         for pos, cost in pos_cost:
+        #             clkwise_trans_cost = abs(pos - curr_pos)
+        #             temp_cost = cost + min(clkwise_trans_cost, n - clkwise_trans_cost)
+        #             curr_cost = min(curr_cost, temp_cost)
+        #         pos_cost_curr.append((curr_pos, curr_cost))
+        #     pos_cost = pos_cost_curr
+
+        # min_cost = float('inf')
+        # for pos, cost in pos_cost:
+        #     min_cost = min(min_cost, cost)
+
+        # return min_cost + len(key)
+
+        # ----------------------------------------------------------------------------------------
+
+        # ----- pass some, but not all test cases --------
+        # def dp(i, j):
+        #     if (i, j) in memo:
+        #         return memo[(i, j)]
+        #     if i == len(key):
+        #         return 0
+        #     res = float('inf')
+        #     for k in pos[key[i]]:
+        #         diff = abs(j - k)
+        #         res = min(res, diff + dp(i + 1, k))
+        #     memo[(i, j)] = res
+        #     return res
+
+        # pos = {}
+        # for i, c in enumerate(ring):
+        #     if c not in pos:
+        #         pos[c] = []
+        #     pos[c].append(i)
+
+        # memo = {}
+        # return len(key) + dp(0, 0)
