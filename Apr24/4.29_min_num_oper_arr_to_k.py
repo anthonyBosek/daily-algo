@@ -14,8 +14,37 @@
 """
 
 from typing import List
+from functools import reduce
+from operator import xor
 
 
 class Solution:
     def minOperations(self, nums: List[int], k: int) -> int:
-        pass
+        final_xor = 0
+        for n in nums:
+            final_xor = final_xor ^ n
+
+        return bin(final_xor ^ k).count("1")
+
+        # ---------------------------------------------------
+
+        # ------ crazy one line solution ------
+        # return (reduce(xor, nums) ^ k).bit_count()
+
+
+# ---------------------------------------------------
+
+#         curr=0
+#         for num in nums:
+#             curr^=num
+#         curr^=k
+
+#         return countBits(curr)
+
+
+# def countBits(num):
+#     count=0
+#     while num:
+#         count+=1
+#         num&=num-1
+#     return count
