@@ -25,4 +25,56 @@
 
 class Solution:
     def compareVersion(self, version1: str, version2: str) -> int:
-        pass
+        v1 = list(map(int, version1.split(".")))
+        v2 = list(map(int, version2.split(".")))
+
+        for i in range(max(len(v1), len(v2))):
+            n1 = v1[i] if i < len(v1) else 0
+            n2 = v2[i] if i < len(v2) else 0
+
+            if n1 < n2:
+                return -1
+            elif n1 > n2:
+                return 1
+
+        return 0
+
+        # ---------------------------------------------------------
+
+        # v1 = list(map(int, version1.split('.')))
+        # v2 = list(map(int, version2.split('.')))
+
+        # if len(v1) < len(v2):
+        #     v1 += [0] * (len(v2) - len(v1))
+        # elif len(v2) < len(v1):
+        #     v2 += [0] * (len(v1) - len(v2))
+
+        # for i in range(len(v1)):
+        #     if v1[i] > v2[i]:
+        #         return 1
+        #     elif v1[i] < v2[i]:
+        #         return -1
+
+        # return 0
+
+        # ---------------------------------------------------------
+
+        # version1 = list(map(int, version1.split(".")))
+        # version2 = list(map(int, version2.split(".")))
+
+        # for i, j in zip(version1, version2):
+        #     if i < j:
+        #         return -1
+        #     if i > j:
+        #         return 1
+
+        # ret = 1
+        # if len(version1) == len(version2):
+        #     return 0
+        # elif len(version1) < len(version2):
+        #     ret = -1
+        #     version1, version2 = version2, version1
+
+        # if all(x == 0 for x in version1[len(version2):]):
+        #     return 0
+        # return ret
