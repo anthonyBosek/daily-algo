@@ -37,4 +37,51 @@ class Solution:
         :type node: ListNode
         :rtype: void Do not return anything, modify node in-place instead.
         """
-        pass
+        pnode, nnode = node, node.next
+        while nnode is not None:
+            node.val = nnode.val
+            pnode, node = node, nnode
+            nnode = nnode.next
+        pnode.next = None
+
+        # ---------------------------------------------------------------
+
+        # # locate victim node
+        # victim_node = node.next
+
+        # # overwrite node's value by victim node's value
+        # node.val = victim_node.val
+
+        # # break the linkage of victim node
+        # node.next = victim_node.next
+
+        # # release victim node
+        # del victim_node
+
+        # return
+
+        # ---------------------------------------------------------------
+
+        # if not node:
+        #     return None
+        # first = node
+        # second = first.next
+        # third = second.next
+
+        # first.val = second.val
+        # first.next = third
+        # second.next= None
+
+        # ---------------------------------------------------------------
+
+        # # Copy the value of the next node to the current node
+        # node.val = node.next.val
+
+        # # Delete the next node
+        # node.next = node.next.next
+
+        # if node.next:
+        #     node.val  = node.next.val
+        #     node.next = node.next.next
+        # else:
+        #     node.next = None
