@@ -20,3 +20,39 @@ from typing import List
 class Solution:
     def subsetXORSum(self, nums: List[int]) -> int:
         pass
+        # res = 0
+        # for num in nums:
+        #     res |= num
+        # return res * (1 << (len(nums) - 1))
+
+        # ------------------------------------------------------------------------
+
+        # def dfs(i: int, xors: int) -> int:
+        #     if i == len(nums):
+        #         return xors
+        #     x = dfs(i + 1, xors)
+        #     y = dfs(i + 1, nums[i] ^ xors)
+        #     return x + y
+
+        # return dfs(0, 0)
+
+        # ------------------------------------------------------------------------
+
+        # def backtrack(start, subset_xor):
+        #     nonlocal total_xor
+        #     total_xor += subset_xor
+        #     for i in range(start, len(nums)):
+        #         backtrack(i + 1, subset_xor ^ nums[i])
+
+        # total_xor = 0
+        # backtrack(0, 0)
+        # return total_xor
+
+        # ------------------------------------------------------------------------
+
+        # def xor_sum(nums, i, xor):
+        #     if i == len(nums):
+        #         return xor
+        #     return xor_sum(nums, i + 1, xor) + xor_sum(nums, i + 1, xor ^ nums[i])
+
+        # return xor_sum(nums, 0, 0)
