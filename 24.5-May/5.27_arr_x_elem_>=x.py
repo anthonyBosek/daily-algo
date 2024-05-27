@@ -17,4 +17,38 @@ from typing import List
 
 class Solution:
     def specialArray(self, nums: List[int]) -> int:
-        pass
+        # nums.sort()
+        # n = len(nums)
+
+        # for x in range(1, n + 1):
+        #     count = 0
+        #     for num in nums:
+        #         if num >= x:
+        #             count += 1
+        #     if count == x:
+        #         return x
+        # return -1
+
+        # ? ----------------------------------------------------------------------
+
+        # N = len(nums)
+
+        # freq = [0] * (N + 1)
+        # for num in nums:
+        #     freq[min(N, num)] += 1
+
+        # num_greater_than_or_equal = 0
+        # for i in range(N, 0, -1):
+        #     num_greater_than_or_equal += freq[i]
+        #     if i == num_greater_than_or_equal:
+        #         return i
+
+        # return -1
+
+        # ? ----------------------------------------------------------------------
+
+        nums.sort(reverse=True)
+        for i in range(len(nums)):
+            if nums[i] >= i + 1 and (i == len(nums) - 1 or nums[i + 1] < i + 1):
+                return i + 1
+        return -1
