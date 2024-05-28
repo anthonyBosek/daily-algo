@@ -13,7 +13,48 @@
 
 """
 
+from collections import deque
+
 
 class Solution:
     def equalSubstring(self, s: str, t: str, maxCost: int) -> int:
-        pass
+        cost_q = deque(maxlen=len(s))
+        result = 0
+        for c1, c2 in zip(s, t):
+            c = abs(ord(c1) - ord(c2))
+            maxCost -= c
+            cost_q.append(c)
+            while maxCost < 0:
+                maxCost += cost_q.popleft()
+            if len(cost_q) > result:
+                result = len(cost_q)
+        return result
+
+        # --------------------------------------------------------
+
+        # cost = lambda i: abs(ord(s[i]) - ord(t[i]))
+
+        # i = 0
+        # for j in range(len(s)):
+        #     maxCost -= cost(j)
+        #     if maxCost < 0:
+        #         maxCost += cost(i)
+        #         i += 1
+
+        # return j - i + 1
+
+        # --------------------------------------------------------
+
+        # n = len(s)
+        # cost = [abs(ord(s[i]) - ord(t[i])) for i in range(n)]
+        # i = 0
+        # j = 0
+        # max_len = 0
+        # while j < n:
+        #     maxCost -= cost[j]
+        #     while maxCost < 0:
+        #         maxCost += cost[i]
+        #         i += 1
+        #     max_len = max(max_len, j - i + 1)
+        #     j += 1
+        # return max_len
