@@ -15,4 +15,28 @@
 
 class Solution:
     def numSteps(self, s: str) -> int:
-        pass
+        return len(s) + s.rstrip("0").count("0") + 2 * (s.count("1") != 1) - 1
+
+        # -----------------------------------
+
+        # n = int(s, 2)
+        # a = 0
+        # while n > 1:
+        #     if n & 1:
+        #         n += 1
+        #     else:
+        #         n //= 2
+        #     a += 1
+        # return a
+
+        # -----------------------------------
+
+        # n = int(s, 2)
+        # steps = 0
+        # while n != 1:
+        #     if n % 2 == 0:
+        #         n //= 2
+        #     else:
+        #         n += 1
+        #     steps += 1
+        # return steps
