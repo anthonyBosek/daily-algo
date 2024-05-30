@@ -22,4 +22,32 @@ from typing import List
 
 class Solution:
     def countTriplets(self, arr: List[int]) -> int:
-        pass
+        n = len(arr)
+        res = 0
+        for i in range(n):
+            xor = arr[i]
+            for k in range(i + 1, n):
+                xor ^= arr[k]
+                if xor == 0:
+                    res += k - i
+        return res
+
+    # ---------------------------------------------
+
+    # def countTriplets(self, arr: List[int]) -> int:
+    #     pre = []
+    #     p = 0
+    #     res = 0
+    #     n = len(arr)
+
+    #     for i in arr:
+    #         p ^= i
+    #         pre.append(p)
+
+    #     for i in range(n):
+    #         for k in range(i + 1, n):
+    #             # print(i, k, pre[k] - (pre[i - 1] if i > 0 else 0))
+    #             if pre[k] - (pre[i - 1] if i > 0 else 0) == 0:
+    #                 res += k - i
+
+    #     return res
