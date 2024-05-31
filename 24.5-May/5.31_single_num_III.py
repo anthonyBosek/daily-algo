@@ -14,4 +14,30 @@ from typing import List
 
 class Solution:
     def singleNumber(self, nums: List[int]) -> List[int]:
-        pass
+        ans = set()
+        for n in nums:
+            if n in ans:
+                ans.remove(n)
+            else:
+                ans.add(n)
+        return list(ans)
+
+        # ? ---------------------------------------------
+
+        # xor = 0
+        # for num in nums:
+        #     xor ^= num
+
+        # mask = 1
+        # while xor & mask == 0:
+        #     mask <<= 1
+
+        # a = b = 0
+        # #? a, b = 0, 0
+        # for num in nums:
+        #     if num & mask:
+        #         a ^= num
+        #     else:
+        #         b ^= num
+
+        # return [a, b]
