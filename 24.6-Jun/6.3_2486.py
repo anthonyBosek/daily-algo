@@ -13,6 +13,10 @@
 """
 
 
-class Solution:
-    def appendCharacters(self, s: str, t: str) -> int:
-        pass
+def appendCharacters(s, t):
+    """
+    :type s: str
+    :type t: str
+    :rtype: int
+    """
+    pass
