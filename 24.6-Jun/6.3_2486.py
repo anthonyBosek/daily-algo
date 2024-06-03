@@ -19,4 +19,18 @@ def appendCharacters(s, t):
     :type t: str
     :rtype: int
     """
-    pass
+    it = iter(s)
+    matching_count = sum(1 for char in t if char in it)
+    return len(t) - matching_count
+
+    #! -------------------------------------------------
+
+    # i = 0
+    # j = 0
+    # n = len(s)
+    # m = len(t)
+    # while i < n and j < m:
+    #     if s[i] == t[j]:
+    #         j += 1
+    #     i += 1
+    # return m - j
