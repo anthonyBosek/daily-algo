@@ -31,3 +31,6 @@ SELECT tweet_id
 FROM Tweets
 WHERE LENGTH(content) > 15
 -- WHERE CHAR_LENGTH(content) > 15 -- a tad bit slower! (99.96)
+
+-- Day 6
+--
