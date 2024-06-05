@@ -30,7 +30,26 @@ ORDER BY id ASC
 SELECT tweet_id
 FROM Tweets
 WHERE LENGTH(content) > 15
--- WHERE CHAR_LENGTH(content) > 15 -- a tad bit slower! (99.96)
+-- WHERE CHAR_LENGTH(content) > 15 -- a tad bit slower! (99.96%)
 
 -- Day 6
---
+-- 1378. Replace Employee ID With The Unique Identifier
+SELECT EmployeeUNI.unique_id, Employees.name
+FROM Employees
+LEFT JOIN EmployeeUNI
+ON Employees.id = EmployeeUNI.id
+
+-- Day 7
+-- 1068. Product Sales Analysis I
+SELECT P.product_name, S.year, S.price
+FROM Sales AS S
+LEFT JOIN Product AS P
+ON S.product_id = P.product_id
+-- ** without alias (AS) **
+-- SELECT Product.product_name, Sales.year, Sales.price
+-- FROM Sales
+-- LEFT JOIN Product
+-- ON Sales.product_id = Product.product_id
+
+-- Day 8
+-- 
