@@ -52,4 +52,25 @@ ON S.product_id = P.product_id
 -- ON Sales.product_id = Product.product_id
 
 -- Day 8
+-- 1581. Customer Who Visited but Did Not Make Any Transactions
+SELECT V.customer_id, COUNT(V.visit_id) AS count_no_trans
+FROM Visits AS V
+LEFT JOIN Transactions AS T
+ON V.visit_id = T.visit_id
+WHERE T.transaction_id IS NULL
+GROUP BY V.customer_id
+
+-- Day 9
+-- 197. Rising Temperature
+SELECT W1.id
+FROM Weather AS W1
+JOIN Weather AS W2
+ON DATEDIFF(W1.recordDate, w2.recordDate) = 1
+WHERE W1.temperature > W2.temperature
+-- ** without JOIN **
+-- SELECT W1.id
+-- FROM Weather W1, Weather W2
+-- WHERE W1.temperature > W2.temperature AND DATEDIFF(W1.recordDate, W2.recordDate) = 1
+
+-- Day 10
 -- 
