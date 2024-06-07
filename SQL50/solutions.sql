@@ -73,4 +73,43 @@ WHERE W1.temperature > W2.temperature
 -- WHERE W1.temperature > W2.temperature AND DATEDIFF(W1.recordDate, W2.recordDate) = 1
 
 -- Day 10
+-- 1661. Average Time of Process per Machine
+SELECT A1.machine_id, ROUND(AVG(A2.timestamp - A1.timestamp), 3) AS processing_time
+FROM Activity AS A1
+JOIN ACTIVITY AS A2
+ON A1.machine_id = A2.machine_id AND A1.process_id = A2.process_id
+AND A1.activity_type = 'start' AND A2.activity_type = 'end'
+GROUP BY A1.machine_id
+
+-- Day 11
+-- 577. Employee Bonus
+SELECT E.name, B.bonus
+FROM Employee AS E
+LEFT JOIN Bonus AS B
+    ON E.empId = B.empId
+WHERE B.bonus < 1000 OR B.bonus IS NULL
+
+-- Day 12
+-- 1280. Students and Examinations
+SELECT
+    Students.student_id,
+    Students.student_name,
+    Subjects.subject_name,
+    COUNT(Examinations.subject_name) AS attended_exams
+FROM Students
+JOIN Subjects
+LEFT JOIN Examinations
+ON Students.student_id = Examinations.student_id
+AND Subjects.subject_name = Examinations.subject_name
+GROUP BY Students.student_id, Subjects.subject_name
+ORDER BY student_id ASC, subject_name ASC
+-- *alternative solution*
+-- SELECT s.student_id, s.student_name, su.subject_name, count(e.student_id) as attended_exams 
+-- FROM Students s Join Subjects su
+-- LEFT JOIN Examinations e
+-- ON s.student_id = e.student_id and su.subject_name = e.subject_name
+-- GROUP BY s.student_id, su.subject_name
+-- ORDER BY s.student_id, su.subject_name;
+
+-- Day 13
 -- 
