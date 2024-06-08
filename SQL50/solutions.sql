@@ -112,4 +112,42 @@ ORDER BY student_id ASC, subject_name ASC
 -- ORDER BY s.student_id, su.subject_name;
 
 -- Day 13
+-- 570. Managers with at Least 5 Direct Reports
+WITH A AS (
+    SELECT MANAGERID, COUNT(*) CNT
+    FROM Employee
+    GROUP BY managerId 
+)
+SELECT E.NAME
+FROM A, Employee E
+WHERE CNT >= 5
+    AND A.MANAGERID = E.id 
+-- *alternative solution*
+-- SELECT E1.name
+-- FROM Employee AS E1
+-- JOIN Employee AS E2
+-- ON E2.managerID = E1.ID
+-- GROUP BY E1.id, E1.name
+-- HAVING count(E2.managerID) >= 5;
+-- *alternative solution*
+-- select name
+-- from employee
+-- where id
+-- in ( select 
+        --     managerid
+        -- from 
+        --     employee
+        -- group by 
+        --     managerid
+        -- having count(*)>=5);
+
+-- Day 14
+-- 1934. Confirmation Rate
+SELECT s.user_id, 
+  ROUND(AVG(IF(c.action='confirmed',1,0)),2) as confirmation_rate 
+FROM Signups s
+LEFT JOIN Confirmations c using (user_id)
+GROUP BY s.user_id
+
+-- Day 15
 -- 
