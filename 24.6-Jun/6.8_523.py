@@ -21,4 +21,28 @@ from typing import List
 
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
-        pass
+        remainder_cache = {0: -1}
+        remainder = 0
+        for i in range(len(nums)):
+            remainder += nums[i]
+            remainder %= k
+            if remainder not in remainder_cache:
+                remainder_cache[remainder] = i
+            elif i - remainder_cache[remainder] >= 2:
+                return True
+        return False
+
+        # ----------------------------------------------------------
+
+        # sum_map = {0: -1}
+        # sum = 0
+        # for i in range(len(nums)):
+        #     sum += nums[i]
+        #     if k != 0:
+        #         sum = sum % k
+        #     if sum in sum_map:
+        #         if i - sum_map[sum] > 1:
+        #             return True
+        #     else:
+        #         sum_map[sum] = i
+        # return False
