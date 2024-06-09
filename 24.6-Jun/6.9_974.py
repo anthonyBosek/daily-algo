@@ -13,4 +13,23 @@ from typing import List
 
 class Solution:
     def subarraysDivByK(self, nums: List[int], k: int) -> int:
-        pass
+        mod = [0] * k
+        mod[0] = 1
+        running_mod = 0
+        for num in nums:
+            running_mod = (num + running_mod) % k
+            mod[running_mod] += 1
+
+        return sum([n * (n - 1) // 2 for n in mod])
+
+        # -----------------------------------------------------
+
+        # count = 0
+        # prefix_sum = 0
+        # remainder_count = {0: 1}
+        # for num in nums:
+        #     prefix_sum += num
+        #     remainder = prefix_sum % k
+        #     count += remainder_count.get(remainder, 0)
+        #     remainder_count[remainder] = remainder_count.get(remainder, 0) + 1
+        # return count
