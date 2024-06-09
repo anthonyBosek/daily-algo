@@ -150,4 +150,23 @@ LEFT JOIN Confirmations c using (user_id)
 GROUP BY s.user_id
 
 -- Day 15
+-- 620. Not Boring Movies
+SELECT *
+FROM Cinema
+WHERE MOD( id, 2) = 1
+AND description != 'boring'
+ORDER BY rating DESC
+-- *alternative solution*
+-- SELECT * FROM Cinema WHERE (id%2=1) AND description != "boring"
+-- ORDER BY rating DESC
+
+-- Day 16
+-- 1251. Average Selling Price
+SELECT p.product_id, IFNULL(ROUND(SUM(units*price)/SUM(units),2),0) AS average_price
+FROM Prices p LEFT JOIN UnitsSold u
+ON p.product_id = u.product_id AND
+u.purchase_date BETWEEN start_date AND end_date
+GROUP BY product_id
+
+-- Day 17
 -- 
