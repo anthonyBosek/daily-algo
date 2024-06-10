@@ -169,4 +169,40 @@ u.purchase_date BETWEEN start_date AND end_date
 GROUP BY product_id
 
 -- Day 17
+-- 1075. Project Employees I
+SELECT p.project_id, ROUND(AVG(e.experience_years),2) AS average_years
+FROM Project p 
+LEFT JOIN Employee e
+ON p.employee_id = e.employee_id
+GROUP BY p.project_id
+
+-- Day 18
+-- 1633. Percentage of Users Attended a Contest
+SELECT r.contest_id,
+ROUND(COUNT(r.user_id) * 100/ (SELECT COUNT(user_id) FROM Users),2) AS percentage
+FROM Register r
+GROUP BY r.contest_id
+ORDER BY percentage DESC, r.contest_id ASC;
+-- *solution explanation*
+-- SELECT 
+--   contest_id, -- The ID of the contest
+--   ROUND(
+--     -- Calculate the percentage of users
+--     COUNT(DISTINCT user_id) * 100 / (
+--       SELECT 
+--         COUNT(user_id) -- Total number of unique users
+--       FROM 
+--         Users
+--     ), 
+--     2
+--   ) AS percentage -- The percentage of users registered for each contest, rounded to 2 decimal places
+-- FROM 
+--   Register -- The table containing registration information
+-- GROUP BY 
+--   contest_id -- Group the data by contest ID
+-- ORDER BY 
+--   percentage DESC, -- Order the results by percentage in descending order
+--   contest_id; -- Then order by contest ID for ties
+
+-- Day 19
 -- 
