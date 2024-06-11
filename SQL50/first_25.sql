@@ -205,4 +205,28 @@ ORDER BY percentage DESC, r.contest_id ASC;
 --   contest_id; -- Then order by contest ID for ties
 
 -- Day 19
+-- 1211. Queries Quality and Percentage
+SELECT 
+    query_name,
+    ROUND(AVG(rating/position), 2) AS quality,
+    ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) / COUNT(*) * 100, 2) AS poor_query_percentage
+FROM 
+    Queries
+WHERE query_name is not null
+GROUP BY
+    query_name;
+
+-- Day 20
+-- 1193. Monthly Transactions I
+SELECT
+    SUBSTR(trans_date,1,7) AS month,
+    country,
+    count(id) AS trans_count,
+    SUM(CASE WHEN state = 'approved' THEN 1 ELSE 0 END) AS approved_count,
+    SUM(amount) AS trans_total_amount,
+    SUM(CASE WHEN state = 'approved' THEN amount ELSE 0 END) AS approved_total_amount
+FROM Transactions
+GROUP BY month, country
+
+-- Day 21
 -- 
