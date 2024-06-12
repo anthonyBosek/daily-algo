@@ -229,4 +229,61 @@ FROM Transactions
 GROUP BY month, country
 
 -- Day 21
+-- 1174. Immediate Food Delivery II
+WITH
+  CustomerToIsImmediate AS(
+    SELECT
+      DISTINCT customer_id,
+      FIRST_VALUE(order_date = customer_pref_delivery_date) OVER(
+        PARTITION BY customer_id
+        ORDER BY order_date
+      ) is_immediate
+    FROM Delivery
+  )
+SELECT ROUND(AVG(is_immediate) * 100, 2) immediate_percentage
+FROM CustomerToIsImmediate
+
+-- Day 22
+-- 550. Game Play Analysis IV
+SELECT
+  ROUND(
+    COUNT(A1.player_id)
+    / (SELECT COUNT(DISTINCT A3.player_id) FROM Activity A3)
+  , 2) AS fraction
+FROM
+  Activity A1
+WHERE
+  (A1.player_id, DATE_SUB(A1.event_date, INTERVAL 1 DAY)) IN (
+    SELECT
+      A2.player_id,
+      MIN(A2.event_date)
+    FROM
+      Activity A2
+    GROUP BY
+      A2.player_id
+  );
+-- *alternative solution*
+-- WITH first_logins AS (
+--   SELECT
+--     A.player_id,
+--     MIN(A.event_date) AS first_login
+--   FROM
+--     Activity A
+--   GROUP BY
+--     A.player_id
+-- ), consec_logins AS (
+--   SELECT
+--     COUNT(A.player_id) AS num_logins
+--   FROM
+--     first_logins F
+--     INNER JOIN Activity A ON F.player_id = A.player_id
+--     AND F.first_login = DATE_SUB(A.event_date, INTERVAL 1 DAY)
+-- )
+-- SELECT
+--   ROUND(
+--     (SELECT C.num_logins FROM consec_logins C)
+--     / (SELECT COUNT(F.player_id) FROM first_logins F)
+--   , 2) AS fraction;
+
+-- Day 23
 -- 
