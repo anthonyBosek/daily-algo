@@ -81,3 +81,89 @@ WHERE
 --   employee_id 
 -- HAVING 
 --   COUNT(employee_id) = 1;
+
+-- Day 32
+-- 610. Triangle Judgement
+-- *Approach 3: IF (cleaner)*
+SELECT x, y, z, 
+IF(((x+y)>z AND (y+z)>x AND (x+z)>y), "Yes", "No") AS triangle 
+FROM triangle
+-- -- *Approach 2: CASE WHEN*
+-- SELECT *,
+-- CASE 
+-- WHEN x+y>z AND z+y>x AND z+x>y THEN 'Yes'
+-- ELSE 'No' END
+-- AS triangle
+-- FROM Triangle
+-- -- *Approach 1: IF*
+-- select
+--     x,
+--     y,
+--     z,
+--     if(x+y>z and y+z>x and z+x>y, 'Yes' , 'No') as triangle
+-- from 
+--     triangle;
+
+-- Day 33
+-- 180. Consecutive Numbers
+SELECT DISTINCT
+    l1.Num AS ConsecutiveNums
+FROM
+    Logs l1,
+    Logs l2,
+    Logs l3
+WHERE
+    l1.Id = l2.Id - 1
+    AND l2.Id = l3.Id - 1
+    AND l1.Num = l2.Num
+    AND l2.Num = l3.Num
+;
+
+-- Day 34
+-- 1164. Product Price at a Given Date
+-- *Approach 2: CTE*
+WITH cte AS (
+    SELECT *, RANK()OVER(PARTITION BY product_id ORDER BY change_date DESC)AS rk 
+    FROM products 
+    WHERE 
+        change_date <= '2019-08-16'
+)
+
+SELECT DISTINCT p.product_id,IFNULL(c.new_price,10)AS price 
+FROM products p  
+LEFT JOIN cte c 
+on c.product_id=p.product_id
+where rk=1
+or rk IS NULL
+ORDER BY price desc
+-- -- *Approach 1: UNION ALL*
+-- SELECT
+--   product_id,
+--   10 AS price
+-- FROM
+--   Products
+-- GROUP BY
+--   product_id
+-- HAVING
+--   MIN(change_date) > '2019-08-16'
+-- UNION ALL
+-- SELECT
+--   product_id,
+--   new_price AS price
+-- FROM
+--   Products
+-- WHERE
+--   (product_id, change_date) IN (
+--     SELECT
+--       product_id,
+--       MAX(change_date)
+--     FROM
+--       Products
+--     WHERE
+--       change_date <= '2019-08-16'
+--     GROUP BY
+--       product_id
+--   );
+
+-- Day 35
+-- 
