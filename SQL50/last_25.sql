@@ -166,4 +166,78 @@ ORDER BY price desc
 --   );
 
 -- Day 35
+-- 1204. Last Person to Fit in the Bus
+-- *Approach 1: Window Function*
+SELECT person_name
+FROM (
+    SELECT *,
+           SUM(weight) OVER (ORDER BY turn) AS cumulative_weight
+    FROM Queue
+) subquery
+WHERE cumulative_weight <= 1000
+ORDER BY  turn DESC
+LIMIT 1;
+-- -- *Approach 2: CTE*
+-- WITH RunningTotal AS (
+--     SELECT
+--         person_name,
+--         weight,
+--         turn,
+--         SUM(weight) OVER (ORDER BY turn) AS total
+--     FROM
+--         Queue
+-- )
+-- SELECT
+--     person_name
+-- FROM
+--     RunningTotal
+-- WHERE
+--     total <= 1000
+-- ORDER BY
+--     turn DESC
+-- LIMIT 1;
+
+-- Day 36
+-- 1907. Count Salary Categories
+-- *Approach 1: RIGHT JOIN*
+SELECT category, 
+       COALESCE(SUM(accounts_count), 0) AS accounts_count
+FROM (
+  SELECT CASE 
+           WHEN income < 20000 THEN 'Low Salary'
+           WHEN income BETWEEN 20000 AND 50000 THEN 'Average Salary'
+           ELSE 'High Salary'
+         END AS category,
+         COUNT(*) AS accounts_count
+  FROM Accounts
+  GROUP BY category
+) AS categorized_accounts
+RIGHT JOIN (
+  SELECT 'Low Salary' AS category
+  UNION ALL 
+  SELECT 'Average Salary'
+  UNION ALL 
+  SELECT 'High Salary'
+) AS all_categories USING (category)
+GROUP BY category;
+-- -- *Approach 2: UNION*
+-- SELECT 
+--     'Low Salary' AS category,
+--     SUM(income < 20000) AS accounts_count
+-- FROM 
+--     Accounts
+-- UNION 
+--     SELECT 
+--         'Average Salary' AS category,
+--         SUM(income BETWEEN 20000 AND 50000 ) AS accounts_count
+--     FROM 
+--         Accounts
+-- UNION
+--     SELECT 
+--         'High Salary' AS category,
+--         SUM(income > 50000) AS accounts_count
+--     FROM 
+--         Accounts;
+
+-- Day 37
 -- 
