@@ -240,4 +240,25 @@ GROUP BY category;
 --         Accounts;
 
 -- Day 37
+-- 1978. Employees Whose Manager Left the Company
+SELECT employee_id
+FROM employees
+WHERE manager_id NOT IN (SELECT employee_id FROM employees)
+AND salary < 30000
+ORDER BY employee_id ASC
+
+-- Day 38
+-- 626. Exchange Seats
+SELECT 
+    CASE
+        WHEN id % 2 = 1 AND id = (SELECT MAX(id) FROM seat) THEN id
+        WHEN id % 2 = 0 THEN id - 1
+        ELSE id + 1
+    END AS id,
+    student
+FROM
+    seat
+ORDER BY id;
+
+-- Day 39
 -- 
