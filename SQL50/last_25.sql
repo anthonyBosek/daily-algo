@@ -261,4 +261,85 @@ FROM
 ORDER BY id;
 
 -- Day 39
+-- 1341. Movie Rating
+-- *Approach 1: UNION ALL*
+(SELECT name AS results
+FROM MovieRating JOIN Users USING(user_id)
+GROUP BY name
+ORDER BY COUNT(*) DESC, name
+LIMIT 1)
+UNION ALL
+(SELECT title AS results
+FROM MovieRating JOIN Movies USING(movie_id)
+WHERE EXTRACT(YEAR_MONTH FROM created_at) = 202002
+GROUP BY title
+ORDER BY AVG(rating) DESC, title
+LIMIT 1);
+-- -- *Approach 2: CTE*
+WITH 
+TheMostActiveUser AS (
+    SELECT name
+    FROM 
+        Users
+        NATURAL JOIN MovieRating
+    GROUP BY user_id
+    ORDER BY COUNT(*) DESC, name
+    LIMIT 1
+),
+TheBestMovieFebruary AS (
+    SELECT title
+    FROM
+        Movies
+        NATURAL JOIN MovieRating
+    WHERE created_at BETWEEN '2020-02-01' AND '2020-02-29'
+    GROUP BY movie_id
+    ORDER BY AVG(rating) DESC, title
+    LIMIT 1
+)
+
+SELECT name AS results
+FROM TheMostActiveUser
+UNION ALL
+SELECT title
+FROM TheBestMovieFebruary
+
+-- Day 40
+-- 1321. Restaurant Growth
+-- *Approach 1: CTE*
+WITH A AS(SELECT visited_on, SUM(amount) as amount
+FROM Customer
+GROUP BY visited_on)
+
+
+SELECT B.visited_on, B.amount, B.average_amount FROM (SELECT A.visited_on, 
+SUM(A.amount) OVER(ORDER BY A.visited_on ASC ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS amount,
+ROUND(AVG(A.amount) OVER(ORDER BY A.visited_on ASC ROWS BETWEEN 6 PRECEDING AND CURRENT ROW),2) AS average_amount
+FROM A
+WHERE A.visited_on
+GROUP BY A.visited_on) B
+WHERE B.visited_on >= (SELECT MIN(A.visited_on)+ 6 FROM A)
+-- -- *Approach 2: Subquery*
+SELECT
+    visited_on,
+    (
+        SELECT SUM(amount)
+        FROM customer
+        WHERE visited_on BETWEEN DATE_SUB(c.visited_on, INTERVAL 6 DAY) AND c.visited_on
+    ) AS amount,
+    ROUND(
+        (
+            SELECT SUM(amount) / 7
+            FROM customer
+            WHERE visited_on BETWEEN DATE_SUB(c.visited_on, INTERVAL 6 DAY) AND c.visited_on
+        ),
+        2
+    ) AS average_amount
+FROM customer c
+WHERE visited_on >= (
+        SELECT DATE_ADD(MIN(visited_on), INTERVAL 6 DAY)
+        FROM customer
+    )
+GROUP BY visited_on;
+
+-- Day 41
 -- 
