@@ -342,4 +342,34 @@ WHERE visited_on >= (
 GROUP BY visited_on;
 
 -- Day 41
--- 
+-- 585. Investments in 2016
+SELECT ROUND(SUM(tiv_2016),2) AS "tiv_2016"
+FROM Insurance
+WHERE tiv_2015 IN(
+    SELECT tiv_2015
+    FROM Insurance
+    GROUP BY tiv_2015
+    HAVING COUNT(pid)>=2
+)
+AND
+(lat, lon) IN(
+    SELECT lat, lon
+    FROM Insurance
+    GROUP BY lat, lon
+    HAVING COUNT(pid)=1
+);
+
+-- Day 42
+-- 602. Friend Requests II: Who Has the Most Friends
+WITH all_ids AS (
+   SELECT requester_id AS id 
+   FROM RequestAccepted
+   UNION ALL
+   SELECT accepter_id AS id
+   FROM RequestAccepted)
+SELECT id, 
+   COUNT(id) AS num
+FROM all_ids
+GROUP BY id
+ORDER BY COUNT(id) DESC
+LIMIT 1;
