@@ -93,7 +93,14 @@ WHERE id NOT IN (
 );
 
 -- Day 47
--- 
+-- 176. Second Highest Salary
+SELECT
+    (SELECT
+        DISTINCT salary 
+        FROM Employee
+        ORDER BY salary DESC
+        LIMIT 1 offset 1
+    ) AS SecondHighestSalary;
 
 -- Day 48
 -- 
