@@ -93,10 +93,29 @@ WHERE id NOT IN (
 );
 
 -- Day 47
--- 
+-- 176. Second Highest Salary
+SELECT
+    (SELECT
+        DISTINCT salary 
+        FROM Employee
+        ORDER BY salary DESC
+        LIMIT 1 offset 1
+    ) AS SecondHighestSalary;
 
 -- Day 48
--- 
+-- 1484. Group Sold Products By The Date
+select 
+    sell_date,
+    count(distinct product) as num_sold,
+    group_concat(distinct product order by product) as products
+from
+    Activities 
+group by 
+    sell_date
+order by
+    sell_date;
+-- ap
+-- select sell_date, count(distinct product) as num_sold, Group_concat(distinct product separator ',') as products from Activities group by sell_date;
 
 -- Day 49
 -- 
