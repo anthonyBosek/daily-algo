@@ -114,11 +114,41 @@ group by
     sell_date
 order by
     sell_date;
--- ap
+-- *another way
 -- select sell_date, count(distinct product) as num_sold, Group_concat(distinct product separator ',') as products from Activities group by sell_date;
 
 -- Day 49
--- 
+-- 1327. List the Products Ordered in a Period
+-- approach 1
+select product_name, sum(unit) as unit from products
+join orders using(product_id)
+where year(order_date)=2020 and month(order_date)=2
+group by 1
+having sum(unit)>99;
+-- approach 2
+select product_name, unit
+from (
+select p.product_name, sum(o.unit) unit
+from Products p
+inner join orders o on o.product_id = p.product_id 
+where o.order_date between '2020-02-01' and '2020-02-29'
+group by 1
+) t 
+where unit >= 100;
+-- approach 3 - - best
+SELECT 
+    p.product_name,
+    SUM(o.unit) AS unit
+FROM Products p
+INNER JOIN Orders o ON p.product_id = o.product_id AND MONTH(o.order_date) = 2 AND YEAR(order_date) = 2020
+GROUP BY o.product_id HAVING unit >= 100;
 
 -- Day 50
--- 
+-- 1517. Find Users With Valid E-Mails
+SELECT *
+FROM Users
+WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9_\.\-]*@leetcode(\\?com)?\\.com$';
+
+SELECT * 
+FROM Users
+WHERE mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode\\.com$';
