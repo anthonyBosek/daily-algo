@@ -18,4 +18,21 @@ def findCenter(edges):
     :type edges: List[List[int]]
     :rtype: int
     """
-    pass
+    #! -- Approach 0: Set Intersection (Optimized/Copilot) --
+    return (set(edges[0]) & set(edges[1])).pop()
+
+    #! -- Approach 1: Degree Count (Brute Force) --
+    # degree = {}
+    # for edge in edges:
+    #     degree[edge[0]] = degree.get(edge[0], 0) + 1
+    #     degree[edge[1]] = degree.get(edge[1], 0) + 1
+
+    # for node, count in degree.items():
+    #     if count == len(edges):
+    #         return node
+
+    # return -1
+
+    #! -- Approach 2: Greedy (Optimized) --
+    # first_edge, second_edge = edges[0], edges[1]
+    # return first_edge[0] if first_edge[0] in second_edge else first_edge[1]
