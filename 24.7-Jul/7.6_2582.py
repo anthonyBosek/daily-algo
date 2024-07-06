@@ -19,4 +19,49 @@ def passThePillow(n, time):
     :type time: int
     :rtype: int
     """
-    pass
+    left_to_right = True
+    pos = 1
+    for i in range(1, time + 1):
+        if left_to_right:
+            pos += 1
+        else:
+            pos -= 1
+        if i % (n - 1) == 0:
+            left_to_right = not left_to_right
+    return pos
+
+
+# ---------------------------------------------------------------------
+#! Approach 1: Simulation
+class Solution:
+    def passThePillow(self, n: int, time: int) -> int:
+        current_pillow_position = 1
+        current_time = 0
+        direction = 1
+        while current_time < time:
+            if 0 < current_pillow_position + direction <= n:
+                current_pillow_position += direction
+                current_time += 1
+            else:
+                # Reverse the direction if the next position is out of bounds
+                direction *= -1
+        return current_pillow_position
+
+
+# ---------------------------------------------------------------------
+#! Approach 2: Math
+class Solution:
+    def passThePillow(self, n, time):
+        # Calculate the number of complete rounds of pillow passing
+        full_rounds = time // (n - 1)
+
+        # Calculate the remaining time after complete rounds
+        extra_time = time % (n - 1)
+
+        # Determine the position of the person holding the pillow
+        # If full_rounds is even, the pillow is moving forward.
+        # If full_rounds is odd, the pillow is moving backward.
+        if full_rounds % 2 == 0:
+            return extra_time + 1  # Position when moving forward
+        else:
+            return n - extra_time  # Position when moving backward
