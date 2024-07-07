@@ -18,4 +18,54 @@ def numWaterBottles(numBottles, numExchange):
     :type numExchange: int
     :rtype: int
     """
-    pass
+    # total = numBottles
+    # while numBottles >= numExchange:
+    #     total += numBottles // numExchange
+    #     numBottles = numBottles // numExchange + numBottles % numExchange
+    # return total
+
+    empty = 0
+    drank = 0
+    while numBottles:
+        drank += 1
+        empty += 1
+        numBottles -= 1
+        if empty == numExchange:
+            empty -= numExchange
+            numBottles += 1
+    return drank
+
+
+#! Approach 1: Simulation
+class Solution:
+    def numWaterBottles(self, numBottles: int, numExchange: int) -> int:
+        consumed_bottles = 0
+
+        while numBottles >= numExchange:
+            # Consume numExchange full bottles.
+            consumed_bottles += numExchange
+            numBottles -= numExchange
+
+            # Exchange them for one full bottle.
+            numBottles += 1
+
+        # Consume the remaining numBottles (less than numExchange).
+        return consumed_bottles + numBottles
+
+
+#! Approach 2: Optimized Simulation
+class Solution:
+    def numWaterBottles(self, numBottles: int, numExchange: int) -> int:
+        consumed_bottles = 0
+
+        while numBottles >= numExchange:
+            # Maximum number of times we can consume numExchange
+            # number of bottles using numBottles.
+            K = numBottles // numExchange
+
+            consumed_bottles += numExchange * K
+            numBottles -= numExchange * K
+
+            numBottles += K
+
+        return consumed_bottles + numBottles
