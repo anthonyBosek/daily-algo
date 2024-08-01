@@ -16,4 +16,26 @@
 
 
 def countSeniors(details):
-    pass
+    #! --- my one liner solution ---
+    return len([d for d in details if int(d[11:13]) > 60])
+
+    #! --- my original solution ---
+    # oldies = 0
+    # for passenger in details:
+    #     phone_number = passenger[0:9]
+    #     gender = passenger[10]
+    #     age = int(passenger[11:13])
+    #     seat = passenger[13:]
+    #     print(phone_number, gender, age, seat)
+    #     if age > 60:
+    #         oldies += 1
+
+    # return oldies
+
+    #! --- refactor solution ---
+
+    # ct = 0
+    # for d in details:
+    #     if int(d[11:13]) > 60:
+    #         ct += 1
+    # return ct
