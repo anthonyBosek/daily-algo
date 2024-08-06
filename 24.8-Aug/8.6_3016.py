@@ -18,10 +18,72 @@
 
 """
 
+from collections import Counter
+
 
 def minimumPushes(word):
     """
     :type word: str
     :rtype: int
     """
-    pass
+    return sum(
+        f * (i // 8 + 1)
+        for i, f in enumerate(sorted(Counter(word).values(), reverse=True))
+    )
+
+
+#! --- Best ---
+class Solution:
+    def minimumPushes(self, word: str) -> int:
+        l = [0] * (32)
+        for i in range(26):
+            l[i] = word.count(chr(97 + i))
+        l.sort(reverse=True)
+        res = 0
+        for i in range(4):
+            for j in range(8):
+                res += (i + 1) * l[8 * i + j]
+        return res
+
+
+#! Approach 1: Greedy Sorting
+class Solution:
+    def minimumPushes(self, word: str) -> int:
+        # Frequency list to store count of each letter
+        frequency = [0] * 26
+
+        # Count occurrences of each letter
+        for c in word:
+            frequency[ord(c) - ord("a")] += 1
+        # Sort frequencies in descending order
+        frequency.sort(reverse=True)
+
+        total_pushes = 0
+
+        # Calculate total number of presses
+        for i in range(26):
+            if frequency[i] == 0:
+                break
+            total_pushes += (i // 8 + 1) * frequency[i]
+
+        return total_pushes
+
+
+#! Approach 2: Using Heap
+class Solution:
+    def minimumPushes(self, word: str) -> int:
+        # Frequency map to store count of each letter
+        frequency_map = Counter(word)
+
+        # Priority queue to store frequencies in descending order
+        frequency_queue = [-freq for freq in frequency_map.values()]
+        heapq.heapify(frequency_queue)
+
+        total_pushes = 0
+        index = 0
+
+        # Calculate total number of presses
+        while frequency_queue:
+            total_pushes += (1 + (index // 8)) * (-heapq.heappop(frequency_queue))
+            index += 1
+        return total_pushes
