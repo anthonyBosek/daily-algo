@@ -17,7 +17,7 @@
 
 def lemonadeChange(bills):
     """
-    bills: List[int]
-    rtype: bool
+    :type bills: List[int]
+    :rtype: bool
     """
     pass
