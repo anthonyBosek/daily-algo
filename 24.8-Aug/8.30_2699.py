@@ -20,11 +20,9 @@
 
 """
 
-from typing import List
+from typing import List, Tuple
 from collections import defaultdict
-import heapq
-import json
-import sys
+import heapq, math, json, sys
 
 
 class Solution:
