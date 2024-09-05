@@ -28,4 +28,37 @@ class Solution:
         :type n: int
         :rtype: List[int]
         """
-        pass
+        m = len(rolls)
+        total = mean * (n + m) - sum(rolls)
+        if total < n or total > 6 * n:
+            return []
+        res = [total // n] * n
+        for i in range(total % n):
+            res[i] += 1
+        return res
+        #
+        # m = len(rolls)
+        # total = mean * (n + m) - sum(rolls)
+        # if total < n or total > 6 * n:
+        #     return []
+        # q, r = divmod(total, n)
+        # return [q + (i < r) for i in range(n)]
+
+
+#! Approach: Math
+class Solution:
+    def missingRolls(self, rolls, mean, n):
+        # Find the sum of the rolls.
+        sum_rolls = sum(rolls)
+        # Find the remaining sum.
+        remaining_sum = mean * (n + len(rolls)) - sum_rolls
+        # Check if sum is valid or not.
+        if remaining_sum > 6 * n or remaining_sum < n:
+            return []
+        distribute_mean = remaining_sum // n
+        mod = remaining_sum % n
+        # Distribute the remaining mod elements in n_elements list.
+        n_elements = [distribute_mean] * n
+        for i in range(mod):
+            n_elements[i] += 1
+        return n_elements
