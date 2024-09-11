@@ -17,6 +17,55 @@
 """
 
 
+#! Approach 1: Brute Force
 class Solution:
     def minBitFlips(self, start: int, goal: int) -> int:
-        pass
+        count = 0
+        while start > 0 or goal > 0:
+            # Increment count if the current bits differ
+            if (start & 1) != (goal & 1):
+                count += 1
+            # Shift both numbers to the right to check the next bits
+            start >>= 1
+            goal >>= 1
+        return count
+
+
+#! Approach 2: Recursive Approach
+class Solution:
+    def minBitFlips(self, start: int, goal: int) -> int:
+        # Base case: both numbers have been fully processed
+        if start == 0 and goal == 0:
+            return 0
+
+        # Flip for the current least significant bit
+        flip = 1 if (start & 1) != (goal & 1) else 0
+
+        # Recurse for the next bits by right-shifting both numbers
+        return flip + self.minBitFlips(start >> 1, goal >> 1)
+
+
+#! Approach 3: XOR Rules
+class Solution:
+    def minBitFlips(self, start: int, goal: int) -> int:
+        # XOR to find differing bits
+        xor_result = start ^ goal
+        count = 0
+        # Count the number of 1s in xor_result (differing bits)
+        while xor_result:
+            count += xor_result & 1  # Increment if the last bit is 1
+            xor_result >>= 1  # Shift right to process the next bit
+        return count
+
+
+#! Approach 4: Brian Kernighan’s Algorithm
+class Solution:
+    def minBitFlips(self, start: int, goal: int) -> int:
+        # XOR to find differing bits
+        xor_result = start ^ goal
+        count = 0
+        # Brian Kernighans algorithm to count 1s
+        while xor_result:
+            xor_result &= xor_result - 1  # Clear the lowest set bit
+            count += 1
+        return count
