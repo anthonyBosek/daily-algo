@@ -44,6 +44,17 @@ class Solution:
             head = node.next
         return dummy.next
 
+        # ? fast solution
+        # if not head.next:
+        #     return head
+        # tmp = head
+        # while tmp.next:
+        #     new = ListNode(gcd(tmp.val, tmp.next.val))
+        #     new.next = tmp.next
+        #     tmp.next = new
+        #     tmp = new.next
+        # return head
+
 
 """
 Algorithm
